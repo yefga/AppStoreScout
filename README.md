@@ -56,12 +56,12 @@ Everything is split for **clarity** and **testability**, without adding unnecess
 1. Clone the repo  
    ```bash
    git clone <your-repo-url>
-   cd appfinder
+   cd AppStoreScout
    ```
 
 2. Install dependencies  
    ```bash
-   npm install
+   yarn install
    ```
 
 3. Install pods (iOS only)  
@@ -71,7 +71,7 @@ Everything is split for **clarity** and **testability**, without adding unnecess
 
 4. Run the app  
    ```bash
-   npm run ios   # or npm run android
+   yarn run ios
    ```
 
 ---
