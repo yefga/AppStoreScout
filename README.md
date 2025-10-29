@@ -1,97 +1,108 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a React Native app built the modern way — **no Expo**.  
+This app lets you search for iOS/macOS/watchOS apps via the iTunes API, preview them, and bookmark them to check out later.
 
-# Getting Started
+---
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🚀 What This App Does
+- Search the App Store (using iTunes Search API)
+- Filter by:
+  - Country (e.g., US, CN)
+  - Platform (iOS, macOS, watchOS, tvOS)
+---
 
-## Step 1: Start Metro
+## 🧠 Architecture Overview
+We follow a **Clean Architecture** pattern — a small but mighty setup that keeps the code organized, testable, and easy to scale.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```
+src/
+├── domain/            # Core business entities & repository contracts
+├── data/              # Implementations that talk to APIs or local storage
+├── infra/             # Network abstraction (fetch wrapper, etc.)
+├── application/       # Hooks & contexts for state and use-cases
+├── presentation/      # Screens, components, navigation, themes, i18n
+└── main.tsx           # App entry (providers + navigation)
 ```
 
-## Step 2: Build and run your app
+### Layers in simple terms
+- **Domain:** Think of this as the “what” — defines what data and rules exist.
+- **Data:** The “how” — how we fetch or store that data (e.g., iTunes API, MMKV).
+- **Infra:** Reusable utilities like a `fetch` wrapper.
+- **Application:** Glue between data and UI — hooks and context logic.
+- **Presentation:** The actual app you see (screens, navigation, components).
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Everything is split for **clarity** and **testability**, without adding unnecessary libraries.
 
-### Android
+---
 
-```sh
-# Using npm
-npm run android
+## 🧰 Tech Stack
 
-# OR using Yarn
-yarn android
-```
+| Area | Tool / Library | Why |
+|------|----------------|-----|
+| Core | **React Native 0.82** | Modern architecture, no Expo |
+| Navigation | `@react-navigation/native` + `native-stack` | Lightweight and fast native nav |
+| Storage | `react-native-mmkv` | Super fast key-value storage for bookmarks |
+| Network | Native `fetch` + custom abstraction | Simpler and future-proof |
+| UI Effects | `react-native-linear-gradient` | Shimmer placeholder |
+| Web | `react-native-webview` | App Store preview |
+| Localization | `i18next` + `react-i18next` + `react-native-localize` | English / Chinese |
+| Connectivity | `@react-native-community/netinfo` | Detect offline mode |
+| Animations | `react-native-reanimated` | Smooth swipe-to-remove & transitions |
+| State Mgmt | React Context | Clean, minimal, no Redux or Zustand |
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## 🏗️ How to Run It
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+1. Clone the repo  
+   ```bash
+   git clone <your-repo-url>
+   cd appfinder
+   ```
 
-```sh
-bundle install
-```
+2. Install dependencies  
+   ```bash
+   npm install
+   ```
 
-Then, and every time you update your native dependencies, run:
+3. Install pods (iOS only)  
+   ```bash
+   cd ios && pod install && cd ..
+   ```
 
-```sh
-bundle exec pod install
-```
+4. Run the app  
+   ```bash
+   npm run ios   # or npm run android
+   ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## 🧩 Folder Breakdown (Quick Tour)
+- **/presentation/screens** → Each screen (Onboarding, Search, Bookmarks, WebPreview)
+- **/application/state** → Contexts for Onboarding & Bookmarks
+- **/application/query** → Hooks for API logic (like `useSearchApps`)
+- **/data/datasources** → The actual iTunes API calls
+- **/infra/http** → Our `fetch` abstraction with timeout & error handling
+- **/domain** → Contracts (`AppRepo`) + Entities (`AppItem`)
 
-# OR using Yarn
-yarn ios
-```
+---
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+## 🖼️ Demo Screenshots
+Feel free to drop screenshots or GIFs of your app demo here 👇  
+(You can replace this section with actual images once you have them)
 
-Now that you have successfully run the app, let's make changes!
+<details>
+<summary>
+![screenshots](screenshots.png)
+</summary>
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+</details>
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 💡 Contributing
 
-## Congratulations! :tada:
+This project is **open for contributors** 🙌  
+If you have ideas for improvements, new features, or just want to clean up code, feel free to fork and open a pull request.
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
