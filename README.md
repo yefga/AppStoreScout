@@ -94,8 +94,9 @@ Feel free to drop screenshots or GIFs of your app demo here 👇
 
 <details>
 <summary>
-  <img src="screenshots.png" width="250"/>
+  Screenshot
 </summary>
+  <img src="screenshots.png" width="250"/>
 
 </details>
 
