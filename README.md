@@ -94,7 +94,7 @@ Feel free to drop screenshots or GIFs of your app demo here 👇
 
 <details>
 <summary>
-![screenshots](screenshots.png)
+  <img src="screenshots.png" width="250"/>
 </summary>
 
 </details>
